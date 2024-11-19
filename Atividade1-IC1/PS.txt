@@ -1,0 +1,1 @@
+Anexei, juntamente ao notebook, uma pasta compactada com as bases de dados utilizadas e outros arquivos "necessários" para melhor entendimento do mesmo.

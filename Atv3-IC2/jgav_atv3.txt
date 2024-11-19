@@ -1,0 +1,51 @@
+# Third Activity (IC2)
+
+Professor: Ricardo Prudêncio
+
+Task:
+
+(PT-BR) 
+
+Leia o capítulo Interpretability do livro "Interpretable Machine Learning" (de Christoph Molnar) e responda às seguintes
+perguntas:
+
+1. Em que situações, prover explicações de modelos não é importante?
+2. Qual é a diferença entre explicações intrínsicas e explicações post hoc?
+3. O que é interpretabilidade local?
+4. O que são métodos agnósticos para explicabilidade?
+5. Considerando as propriedades de explicações individuais, qual a diferença entre acurácia e fidelidade de explicações?
+ 
+Faça o upload das respostas.
+
+(EN)
+
+Read the Interpretability chapter from the book "Interpretable Machine Learning" (by Christoph Molnar) and answer the following questions:
+
+1. In what situations is providing model explanations not important?
+2. What is the difference between intrinsic explanations and post hoc explanations?
+3. What is local interpretability?
+4. What are model-agnostic methods for explainability?
+5. Considering the properties of individual explanations, what is the difference between accuracy and fidelity of explanations?
+
+Upload the answers.
+
+Appendix.: I've personally added some individual perspective on some of the answers.
+
+Resolution:
+
+1. Providing model explanations is not important when the model has no significant impact, such as in a personal prediction project without real consequences. It's also unnecessary when the problem is well-studied and there is sufficient practical experience with the model, as in the case of optical character recognition for processing addresses on envelopes. Interpretability may be undesirable when it might enable people or programs to manipulate the system, which happens when there's a misalignment between the goals of the creator and the user of the model. In low-risk environments where mistakes don't have serious consequences, such as movie recommendation systems, detailed explanations may be unnecessary. Finally, when the method has already been extensively studied and evaluated, interpretability may not add additional value. *In a personal perspective, I do believe even for low significance studies, interpretability is always welcome.
+
+2. According to the chapter, the difference between intrinsic explanations and post hoc explanations lies in the timing and method of achieving interpretability. Intrinsic explanations are achieved by restricting the complexity of the machine learning model during training. This refers to models that are considered interpretable due to their simple structure, such as short decision trees or sparse linear models. On the other hand, post hoc explanations are obtained by applying methods that analyze the model after training. These methods can be applied to any model, including so-called "black box" models. An example of a post hoc method is permutation feature importance. It's important to note that post hoc methods can also be applied to intrinsically interpretable models. Personally, I've used both methods specifically for higher level decision trees and SHAP for ensemble and even Neural Network models.
+
+3. Local interpretability refers to the ability to explain why a model made a specific prediction for an individual instance. It involves zooming in on a single example and understanding what the model predicts for that specific input and why. Local interpretability assumes that the behavior of a complex model might be simpler and more understandable when looking at just a single prediction. Locally, the prediction might depend linearly or monotonically on some features, rather than having a complex dependence on them. For example, the value of a house may depend nonlinearly on its size overall, but for a specific 100 square meter house, the model's prediction might depend linearly on size. Local explanations can therefore be more accurate than global explanations. The chapter mentions that there are methods that can make individual predictions more interpretable, which are discussed in the section on model-agnostic methods.
+
+4. Model-agnostic methods for explainability, according to the chapter, are interpretation tools that can be used on any machine learning model, regardless of its internal structure or complexity. These methods are applied after the model has been trained (post hoc) and work by analyzing feature input and output pairs. By definition, these methods do not have access to model internals such as weights or structural information. They treat the model as a "black box," focusing only on the inputs provided and the outputs produced. A significant advantage of model-agnostic methods is their high portability, as they can be applied to a wide range of machine learning models. This makes them particularly useful in situations where the underlying model is complex or when a consistent approach to explaining different types of models is desired. As I've mentioned before, SHAP (SHapley Additive exPlanations) is an example of model-agnostic method for explainability. 
+
+5. According to the chapter, in a nutshell, accuracy refers to how well an explanation predicts unseen data. High accuracy is especially important if the explanation is to be used for making predictions in place of the original machine learning model. Low accuracy can be acceptable if the accuracy of the machine learning model is also low, and if the goal is to explain what the black box model does. On the other hand, fidelity refers to how well the explanation approximates the prediction of the black box model. High fidelity is one of the most important properties of an explanation, because an explanation with low fidelity is useless for explaining the machine learning model. Accuracy and fidelity are closely related. If the black box model has high accuracy and the explanation has high fidelity, the explanation will also have high accuracy. However, it's possible to have an explanation with high fidelity (that reflects the model's behavior well) but low accuracy (if the original model is not accurate).
+
+Personally, and aside from the chapter read, I really like this topic, so I went on my way to have a tangible example in my line of work (credit scoring):
+
+Suppose we are building a model to give credit. We could have an explanation that implies strongly that a client who is old, straight and african-american, is a bad repayer (resulting in high fidelity), even if the model's outcome (this result) is completely wrong (providing low accuracy).
+
+In this scenario, the credit-scoring model is making decisions based on age and racial characteristics, which is problematic and likely illegal in many jurisdictions. The explanation accurately reflects what the model is doing. It correctly identifies that the model is using age and racial characteristics (being african-american) as key factors in its decision-making process. This means the explanation has high fidelity - it's truthfully representing the model's behavior. However, using these characteristics for credit decisions is not only unethical and likely illegal, but it's also probably not accurate in predicting creditworthiness. Therefore, the model's predictions (and consequently, the explanations) would likely have low accuracy in truly predicting credit risk.
+Ethical and Legal Issues: This example highlights a critical use case for model interpretability - detecting bias and discrimination in model decisions. Even if the model shows good performance metrics on some dataset, explanations can reveal that it's making decisions based on inappropriate or protected characteristics. This scenario underscores why human oversight and interpretation of both models and their explanations are crucial, especially in high-stakes decisions like credit scoring (this is something we need to highly take into consideration in the finance field). It demonstrates why we need explanations that have both high fidelity (to accurately represent what the model is doing) and stem from models with high accuracy (to ensure the decisions are actually correct and fair).
